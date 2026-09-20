@@ -1,0 +1,78 @@
+name: catalog CI
+
+on:
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  catalog-ci:
+    name: catalog-ci
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 1
+          persist-credentials: false
+
+      - name: Required bootstrap files
+        shell: bash
+        run: |
+          set -euo pipefail
+          required=(
+            README.md
+            AGENTS.md
+            catalog/actions.md
+            catalog/python.md
+            catalog/node.md
+            catalog/rust.md
+            catalog/security.md
+            .github/ISSUE_TEMPLATE/task.md
+            .github/pull_request_template.md
+            .github/dependabot.yml
+            .github/workflows/catalog-ci.yml
+          )
+          for f in "${required[@]}"; do
+            test -f "$f" || { echo "missing required file: $f"; exit 1; }
+          done
+
+      - name: Required policy markers
+        shell: bash
+        run: |
+          set -euo pipefail
+          grep -Fq "GitHub platform" README.md
+          grep -Fq "Abstraction rule" README.md
+          grep -Fq "Catalog-specific hard rules" AGENTS.md
+          grep -Fq "full commit SHA" AGENTS.md
+          grep -Fq "Evidence for abstraction" .github/ISSUE_TEMPLATE/task.md
+
+      - name: Reject floating external Action references
+        shell: bash
+        run: |
+          set -euo pipefail
+          bad=0
+          while IFS= read -r line; do
+            ref="$(printf '%s\n' "$line" | sed -E 's/^[[:space:]]*(-[[:space:]]*)?uses:[[:space:]]*//')"
+            case "$ref" in
+              ./*) continue ;;
+            esac
+            if ! printf '%s\n' "$ref" | grep -Eq '@[0-9a-fA-F]{40}([[:space:]]*#.*)?$'; then
+              echo "external Action is not pinned to a full commit SHA: $ref"
+              bad=1
+            fi
+          done < <(grep -RhsE '^[[:space:]]*(-[[:space:]]*)?uses:[[:space:]]*' .github/workflows || true)
+          test "$bad" -eq 0
+
+      - name: Reject pull_request_target
+        shell: bash
+        run: |
+          set -euo pipefail
+          if grep -RnsE '^[[:space:]]*pull_request_target[[:space:]]*:' .github/workflows; then
+            echo "pull_request_target is not allowed in ci-catalog baseline"
+            exit 1
+          fi
