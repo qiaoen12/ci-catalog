@@ -4,6 +4,18 @@ Reusable CI capability catalog for personal and small-team GitHub projects.
 
 `ci-catalog` does **not** implement a CI runtime. It records reviewed CI capabilities, safe defaults, and—only after real duplication is proven—small reusable GitHub Actions workflows.
 
+## Agent quick start
+
+For CI initialization:
+
+> Read `qiaoen12/ci-catalog` and initialize CI for the current repository.
+
+For CI update:
+
+> Read `qiaoen12/ci-catalog` and update CI for the current repository.
+
+Then follow `ADOPTION.md` before making changes.
+
 ## Mission
 
 Use existing platform and ecosystem capabilities before writing new CI machinery.
@@ -94,6 +106,7 @@ No G-lite CLI, Router, Controller, Worker, reviewer runtime, or local task/revie
 ```text
 README.md
 AGENTS.md
+ADOPTION.md
 catalog/
   actions.md
   python.md
