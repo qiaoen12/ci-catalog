@@ -56,6 +56,19 @@ For every proposed capability, evaluate in this order:
 
 Prefer the simplest layer that solves the real requirement.
 
+## Consumer CI adoption
+
+When the task is to initialize or update CI for a consumer repository:
+
+- read and follow `ADOPTION.md`;
+- inspect the consumer repository before selecting CI capabilities;
+- report planned checks before modifying the consumer;
+- preserve repository-specific checks unless the current task explicitly authorizes changing them;
+- do not modify the consumer Ruleset automatically;
+- do not add a reusable workflow without real cross-repository duplication evidence that satisfies the abstraction gate.
+
+Keep the detailed adoption procedure in `ADOPTION.md`; do not create a parallel procedure here.
+
 ## Catalog-specific hard rules
 
 - Do not create reusable workflows merely to remove a few repeated YAML lines.
