@@ -18,6 +18,7 @@ Read:
 - latest `approved` label event;
 - approved Actor;
 - approved timestamp.
+- independent Reviewer Actor: `g-lite-reviewer[bot]`; Developer and Reviewer must remain separate.
 
 Decision:
 
