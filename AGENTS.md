@@ -1,5 +1,13 @@
 # ci-catalog agent-card
 
+## G-lite v3.1 binding
+
+- Developer: `g-lite-developer[bot]` / App ID `5017695`.
+- Reviewer: `g-lite-reviewer[bot]` / App ID `5010632`.
+- Human Authority: the human repository controller owns Genesis, governance, and the final squash merge.
+- Local Bootstrap configures identity only. GitHub is the SSOT; this repository keeps no local task, review, approval, or merge state.
+- Current status: ACTIVE; consumer Required Check: `catalog-ci`.
+
 ## Start
 
 - Read root `README.md`, this file, and the current GitHub Issue Contract.

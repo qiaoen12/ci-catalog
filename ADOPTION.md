@@ -1,6 +1,6 @@
 # CI adoption protocol
 
-Use this protocol when an Agent is asked to initialize or update CI for a consumer repository by using `qiaoen12/ci-catalog`.
+Use this protocol when an Agent is asked to initialize or update CI for a consumer repository by using `qiaoen12/g-ci-catalog`.
 
 This file is an adoption procedure, not an installer. Adapt CI to the repository; do not adapt the repository to CI.
 
@@ -10,7 +10,7 @@ This file is an adoption procedure, not an installer. Adapt CI to the repository
 
 A user may use the short instruction:
 
-> Read `qiaoen12/ci-catalog` and initialize CI for the current repository.
+> Read `qiaoen12/g-ci-catalog` and initialize CI for the current repository.
 
 Use this when the consumer has no CI or does not yet have a clear minimum PR CI.
 
@@ -18,7 +18,7 @@ Use this when the consumer has no CI or does not yet have a clear minimum PR CI.
 
 A user may use the short instruction:
 
-> Read `qiaoen12/ci-catalog` and update CI for the current repository.
+> Read `qiaoen12/g-ci-catalog` and update CI for the current repository.
 
 Use this when the consumer already has CI and the task is to improve, repair, or align it without replacing valid repository-specific behavior.
 
@@ -114,7 +114,7 @@ Unless the consumer's current task explicitly requires more, target a Fast PR CI
 
 Do not add `pull_request_target` to execute untrusted pull request code.
 
-A reusable workflow from `ci-catalog` may be used only when that reusable workflow already exists for a proven reuse case, and the consumer reference must use an exact commit SHA.
+A reusable workflow from `g-ci-catalog` may be used only when that reusable workflow already exists for a proven reuse case, and the consumer reference must use an exact commit SHA.
 
 Do not create a new reusable workflow merely because several YAML lines look similar. The existing ci-catalog abstraction gate still applies.
 

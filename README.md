@@ -4,15 +4,17 @@ Reusable CI capability catalog for personal and small-team GitHub projects.
 
 `ci-catalog` does **not** implement a CI runtime. It records reviewed CI capabilities, safe defaults, and—only after real duplication is proven—small reusable GitHub Actions workflows.
 
+The repository name is `g-ci-catalog`; `ci-catalog` remains the product/component name.
+
 ## Agent quick start
 
 For CI initialization:
 
-> Read `qiaoen12/ci-catalog` and initialize CI for the current repository.
+> Read `qiaoen12/g-ci-catalog` and initialize CI for the current repository.
 
 For CI update:
 
-> Read `qiaoen12/ci-catalog` and update CI for the current repository.
+> Read `qiaoen12/g-ci-catalog` and update CI for the current repository.
 
 Then follow `ADOPTION.md` before making changes.
 
@@ -87,15 +89,22 @@ Otherwise keep the knowledge in `catalog/*.md`.
 This repository adopts the G-lite GitHub-native collaboration protocol:
 
 ```text
-Human
+Human Authority / Genesis
 → Issue Contract
 → fresh independent `approved`
-→ Developer branch / worktree
+→ `g-lite-developer[bot]` branch / worktree
 → PR
 → Required Check `catalog-ci`
-→ independent Reviewer
-→ squash merge
+→ `g-lite-reviewer[bot]`
+→ Human Authority final squash merge
 ```
+
+G-lite v3.1 bindings:
+
+- Developer: `g-lite-developer[bot]` / App ID `5017695`.
+- Reviewer: `g-lite-reviewer[bot]` / App ID `5010632`.
+- Human Authority: the human repository controller; owns Genesis, governance, and the final squash merge.
+- Local Bootstrap is identity setup only; GitHub is the SSOT for Issue, PR, review, check, and merge state.
 
 GitHub is the source of truth for authorization, PR state, checks, reviews and merge result.
 
@@ -124,6 +133,6 @@ catalog/
 
 Consumers keep their own `.github/workflows/ci.yml`.
 
-A consumer may call a reusable workflow from this repository only after that workflow exists for a proven reuse case. Consumer references must use an exact commit SHA, never `@main`.
+A consumer may call a reusable workflow from `g-ci-catalog` only after that workflow exists for a proven reuse case. Consumer references must use an exact commit SHA, never `@main`.
 
 Repository-specific checks stay in the consumer.
