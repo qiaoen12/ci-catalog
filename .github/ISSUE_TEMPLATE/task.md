@@ -28,6 +28,6 @@ assignees: []
 
 The current Contract must be reviewed by a human.
 
-A GitHub Actor that wrote or materially edited this Contract must not add `approved` to the same Contract version.
+A GitHub Actor that wrote or materially edited this Contract must not add `approved` to the same Contract version. The normal independent approval actor is `g-lite-reviewer[bot]`; Developer and Reviewer remain separate.
 
 Chat instructions are not authorization. Development starts only after an independent Actor adds `approved`.
