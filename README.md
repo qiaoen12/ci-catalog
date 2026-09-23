@@ -99,12 +99,16 @@ Human Authority / Genesis
 → Human Authority final squash merge
 ```
 
-G-lite v3.1 bindings:
+G-lite v3.4 bindings:
 
-- Developer: `g-lite-developer[bot]` / App ID `5017695`.
-- Reviewer: `g-lite-reviewer[bot]` / App ID `5010632`.
-- Human Authority: the human repository controller; owns Genesis, governance, and the final squash merge.
+- Developer: `g-lite-developer[bot]` / App ID `5017695`; writes code, never approves its own Contract or merges.
+- Reviewer: independent `g-lite-reviewer[bot]` / App ID `5010632`; authorizes and reviews the current HEAD, never pushes or merges.
+- Human Authority: the human repository controller; owns Genesis, governance, and final squash merge. Main coordinates but is not a fourth GitHub Actor and never writes the Developer PR branch.
 - Local Bootstrap is identity setup only; GitHub is the SSOT for Issue, PR, review, check, and merge state.
+
+New tasks record Original Intent before the Issue Contract. Development and Review require an OPEN Issue with independent `approved` still fresh for its current body: missing is invalid; absent `lastEditedAt` or edit no later than the latest approval event is fresh; later edits need a new independent approval. CI failures and `REQUEST_CHANGES` go back to Developer for an in-scope new HEAD, then `catalog-ci` and independent Review run again.
+
+Before merge, Main reads live main SHA B and PR HEAD H and proves B is an ancestor of H. Otherwise only Developer updates the PR branch and pushes a new HEAD, followed by fresh CI, Review, and preflight. A task-level Human Authority `merge-authorized` label permits Main to merge after all gates pass only if its latest human label event is not older than the Issue body edit and has not been revoked; otherwise obtain explicit Human confirmation. Main checks Human API identity and the gates again immediately before squash merge with `--match-head-commit H`, then reads the actual merge and Issue outcome. The Ruleset does not require a strict latest base, so main could still advance between the last comparison and merge.
 
 GitHub is the source of truth for authorization, PR state, checks, reviews and merge result.
 
