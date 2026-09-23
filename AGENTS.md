@@ -4,7 +4,7 @@
 
 - Developer: `g-lite-developer[bot]` / App ID `5017695`.
 - Reviewer: `g-lite-reviewer[bot]` / App ID `5010632`.
-- Human Authority: the human repository controller owns Genesis, governance, and the final squash merge.
+- Human Authority: the human repository controller owns Genesis, governance, and the final Squash merge.
 - Local Bootstrap configures identity only. GitHub is the SSOT; this repository keeps no local task, review, approval, or merge state.
 - Current status: ACTIVE; consumer Required Check: `catalog-ci`.
 
