@@ -6,6 +6,10 @@ labels: []
 assignees: []
 ---
 
+## Original Intent
+
+<!-- Preserve the original request in the requester's words before scoping the Contract. -->
+
 ## Contract
 
 ### Goal
