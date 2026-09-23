@@ -1,6 +1,6 @@
 # ci-catalog agent-card
 
-## G-lite v3.1 binding
+## G-lite v3.4 binding
 
 - Developer: `g-lite-developer[bot]` / App ID `5017695`.
 - Reviewer: `g-lite-reviewer[bot]` / App ID `5010632`.
@@ -10,7 +10,7 @@
 
 ## Start
 
-- Read root `README.md`, this file, and the current GitHub Issue Contract.
+- Read root `README.md`, this file, and the current GitHub Issue Contract; new tasks record Original Intent before the Contract.
 - Treat current GitHub facts as the source of truth.
 - Do not infer authorization from chat.
 - Confirm the Issue is OPEN.
@@ -77,7 +77,7 @@ When the task is to initialize or update CI for a consumer repository:
 
 Keep the detailed adoption procedure in `ADOPTION.md`; do not create a parallel procedure here.
 
-## Catalog-specific hard rules
+## Catalog safety rules
 
 - Do not create reusable workflows merely to remove a few repeated YAML lines.
 - Do not create profiles for hypothetical future stacks.
@@ -111,14 +111,18 @@ If this evidence does not exist, update `catalog/*.md` instead of creating a wor
 
 ## Developer delivery
 
-1. Read the current Issue Contract.
-2. Verify fresh independent authorization.
-3. Create a branch/worktree from current `origin/main`.
-4. Change only Contract scope.
-5. Run repository checks.
-6. Push and open a PR with Why / What / Test / Unverified-Risks / `Fixes #N`.
-7. Wait for `catalog-ci`.
-8. Stop. Review and merge belong to the independent Reviewer and GitHub.
+1. Read the current Issue Contract and Original Intent; verify OPEN and fresh independent authorization.
+2. Create a branch/worktree from current `origin/main`; change only Contract scope.
+3. Check the actual API Actor, commit author and Git transport for each critical action. Developer clone/fetch/push uses App HTTPS credentials; isolate global Git `insteadOf` rewrites and check effective remote and local config before transport. Never push or merge as Human Authority.
+4. For local credential discovery check `.g-lite-local/credentials` first, then machine-local `~/.config/g-lite/` if absent or unusable. In each checkout, add `.g-lite-local/` to Git's local exclude before creating its credential symlink; do not commit or disclose credential material.
+5. Run repository checks; push and open a PR with Why / What / Test / Unverified-Risks / `Fixes #N`.
+6. Wait for `catalog-ci`. Stop: the independent Reviewer reviews and Human Authority alone merges.
+
+## Main continuous delivery
+
+Main coordinates CI and Review without becoming a fourth GitHub Actor or writing Developer's PR branch. Failed CI or REQUEST_CHANGES goes back to Developer for in-scope repair and a new HEAD; wait for `catalog-ci` and independent Reviewer re-review on that HEAD. Reviewer rechecks Issue authorization freshness, diff and current Checks before APPROVE or REQUEST_CHANGES; Reviewer must never push or merge.
+
+Before final merge, Main reads live main B and PR HEAD H; use GitHub compare or `git merge-base --is-ancestor` to prove B is an ancestor of H. If not, only Developer updates/rebases the branch using App HTTPS and pushes new HEAD; rerun CI, independent Review and full preflight. Human Authority may explicitly preauthorize this task with `merge-authorized`: Main verifies a human API Actor created its latest label event no earlier than the Issue's last body edit and that it remains attached and unrevoked. Without fresh label, ask Human Authority for current-task merge confirmation. Check OPEN Issue, independent fresh `approved`, OPEN non-draft PR targeting main, B ancestor of H, current-HEAD `catalog-ci` PASS and independent Reviewer APPROVE, plus GitHub merge eligibility; recheck immediately before Human Authority squash merge. Read GitHub merged state, merge SHA and Issue state afterward. The Ruleset is not strict latest-base, so main may advance in the final comparison-to-merge window.
 
 ## Reviewer protocol
 
