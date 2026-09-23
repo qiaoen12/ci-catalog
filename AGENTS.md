@@ -77,7 +77,7 @@ When the task is to initialize or update CI for a consumer repository:
 
 Keep the detailed adoption procedure in `ADOPTION.md`; do not create a parallel procedure here.
 
-## Catalog safety rules
+## Catalog-specific hard rules
 
 - Do not create reusable workflows merely to remove a few repeated YAML lines.
 - Do not create profiles for hypothetical future stacks.
